@@ -230,6 +230,20 @@ class ExtensionManager
         }
     }
 
+    /**
+     * Enables all shared extensions
+     */
+    public function enableAllSharedExtensions()
+    {
+        $files = glob(ini_get('extension_dir') . DIRECTORY_SEPARATOR . '*.so');
+
+        foreach ($files as $file) {
+            $name = pathinfo($file, PATHINFO_FILENAME);
+            $ext = new Extension($name);
+            $this->enableExtension($ext);
+        }
+    }
+
     public function hasConflicts(Extension $ext)
     {
         return array_key_exists($ext->getName(), $this->conflicts);
