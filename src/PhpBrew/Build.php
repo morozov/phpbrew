@@ -107,6 +107,10 @@ class Build implements Buildable
 
     public function compareVersion($version)
     {
+        if ($this->version === 'master') {
+            return 1;
+        }
+
         return version_compare($this->version, $version);
     }
 
